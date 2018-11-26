@@ -14,7 +14,7 @@
 
     <groupId>de.akquinet.ats.ccsp</groupId>
     <artifactId>docker-calculator-parent</artifactId>
-    <version>1.0.1-SNAPSHOT </version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Docker Calculator - Parent</name>
 
@@ -98,6 +98,27 @@
                 <artifactId>rest-assured</artifactId>
                 <version>3.2.0</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- Modules -->
+            <dependency>
+                <groupId>de.akquinet.ats.ccsp</groupId>
+                <artifactId>docker-calculator-backend</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.akquinet.ats.ccsp</groupId>
+                <artifactId>docker-calculator-frontend</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+
+            <dependency>
+                <groupId>de.akquinet.ats.ccsp</groupId>
+                <artifactId>docker-calculator-docker</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
             </dependency>
 
         </dependencies>
