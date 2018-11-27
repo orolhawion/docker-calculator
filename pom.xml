@@ -22,6 +22,7 @@
         <module>frontend</module>
         <module>backend</module>
         <module>docker</module>
+        <module>war</module>
     </modules>
 
 </project>

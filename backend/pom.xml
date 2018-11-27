@@ -9,11 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>backend</artifactId>
+    <artifactId>docker-calculator-backend</artifactId>
     <name>Docker Calculator - Backend</name>
 
     <dependencies>
-
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>
