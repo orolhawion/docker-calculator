@@ -1,0 +1,2 @@
+# add more time for slow machines
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=4800)

@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 import static de.akquinet.ats.ccsp.calculator.rest.JaxRSActivator.CALCULATE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -22,6 +23,12 @@ public class CalculationResource {
     @POST
     @Consumes(APPLICATION_JSON)
     public Response calculate(final CalculationRequest request) {
+        if (request.getOperands().isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("No operands provided, cannot calculate.")
+                    .build();
+        }
+
         switch (request.getOperator()) {
             case ADD: return Response.ok(service.add(request.getOperands())).build();
             case SUBTRACT: return Response.ok(service.subtract(request.getOperands())).build();

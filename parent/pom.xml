@@ -160,6 +160,7 @@
                 <groupId>de.akquinet.ats.ccsp</groupId>
                 <artifactId>docker-calculator-war</artifactId>
                 <version>${project.version}</version>
+                <type>war</type>
             </dependency>
 
         </dependencies>

@@ -24,7 +24,7 @@ public class InvalidFormatExceptionMapper implements ExceptionMapper<InvalidForm
         if (targetType == Operator.class) {
             final String allowedValues = ALLOWED_VALUES;
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("The provider operator '" + exception.getValue()
+                    .entity("The provided operator '" + exception.getValue()
                             + "' is not supported. This API supports the following operators: " + allowedValues)
                     .build();
         }else if (targetType == Double.class) {

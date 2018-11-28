@@ -16,7 +16,7 @@
         <mysql.db>calculator_it</mysql.db>
         <mysql.user>calculator</mysql.user>
         <mysql.password>calculator,02</mysql.password>
-        <mysql.port.public>3308</mysql.port.public>
+        <mysql.port.public>3306</mysql.port.public>
         <mysql.port.exposed>3306</mysql.port.exposed>
         <mysql.jdbc.url>jdbc:mysql://localhost:${mysql.port.public}/${mysql.db}?useSSL=false</mysql.jdbc.url>
     </properties>
@@ -34,7 +34,31 @@
 
         <dependency>
             <groupId>de.akquinet.ats.ccsp</groupId>
+            <artifactId>docker-calculator-backend</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.akquinet.ats.ccsp</groupId>
             <artifactId>docker-calculator-war</artifactId>
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -47,6 +71,43 @@
 
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>surefire-it</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>false</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <trimStackTrace>false</trimStackTrace>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>run integration-tests</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
@@ -175,7 +236,7 @@
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <configuration>
                             <jboss-home>${eap.home}</jboss-home>
-                            <serverConfig>standalone-full.xml</serverConfig>
+                            <serverConfig>standalone.xml</serverConfig>
 
                             <server-args>
                                 <server-arg>-Dmysql.jdbc.url=${mysql.jdbc.url}</server-arg>
@@ -204,6 +265,7 @@
                                     <execute-commands>
                                         <scripts>
                                             <script>${eap.home}/standalone/configuration/configure-datasource.cli</script>
+                                            <script>${eap.home}/standalone/configuration/deployment-scanner.cli</script>
                                         </scripts>
                                     </execute-commands>
                                 </configuration>
@@ -211,13 +273,12 @@
 
                             <!-- EAP startup and webapp deployment for IT -->
                             <execution>
-                                <id>deploy-app</id>
+                                <id>deploy-app-on-wildfly</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
                                     <goal>start</goal>
                                     <goal>deploy-artifact</goal>
                                 </goals>
-
                                 <configuration>
                                     <groupId>de.akquinet.ats.ccsp</groupId>
                                     <artifactId>docker-calculator-war</artifactId>
@@ -225,7 +286,7 @@
                             </execution>
 
                             <execution>
-                                <id>stop server</id>
+                                <id>stop-wildfly</id>
                                 <phase>post-integration-test</phase>
                                 <goals>
                                     <goal>shutdown</goal>
