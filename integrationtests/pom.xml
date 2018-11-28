@@ -297,6 +297,98 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>it-with-docker</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>surefire-it</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>false</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <trimStackTrace>false</trimStackTrace>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>run integration-tests</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>akquinet-ats-ccsp/docker-calculator-wildfly:${project.version}</name>
+                                    <alias>docker_calculator_wildfly</alias>
+                                    <run>
+                                        <namingStrategy>alias</namingStrategy>
+                                        <ports>
+                                            <port>8080:8080</port>
+                                        </ports>
+
+                                        <wait>
+                                            <time>10000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+
+                            <verbose>true</verbose>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>start</id>
+                                <phase>pre-integration-test</phase>
+
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+
+                            <execution>
+                                <id>stop</id>
+                                <phase>post-integration-test</phase>
+
+                                <goals>
+                                    <goal>stop</goal>
+                                    <goal>remove</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>
