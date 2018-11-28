@@ -1,47 +1,36 @@
 <div class="container">
   <h1>Welcome to {{ title }}</h1>
-  <h4>Please enter two numbers, select an operator and click 'Calculate'.</h4>
+  <h4>Please enter two numbers, select an operator and click '='.</h4>
   <form>
-    <div class="form-group">
-      <label for="firstOperand">Operand 1</label>
-      <input type="text"
-             class="form-control"
-             id="firstOperand"
-             [formControl]="firstOperand"
-             placeholder="Any number">
+    <div class="row form-inline">
+      <fieldset>
+        <input type="text"
+               class="form-control"
+               id="firstOperand"
+               [formControl]="firstOperand"
+               placeholder="Any number">
+        <select class="form-control"
+                id="operatorSelect"
+                [formControl]="operator">
+          <option value="ADD">+</option>
+          <option value="SUBTRACT">-</option>
+          <option value="MULTIPLY">*</option>
+          <option value="DIVIDE">/</option>
+        </select>
+        <input type="text"
+               class="form-control"
+               id="secondOperand"
+               [formControl]="secondOperand"
+               placeholder="Any number">
+        <button type="button"
+                class="btn btn-primary"
+                [disabled]="isButtonDisabled()"
+                (click)="performCalculation()">=</button>
+        <span *ngIf="isCalulationResultVisible()"> {{ calculationResult }}</span>
+      </fieldset>
     </div>
-    <div class="form-group">
-      <label for="secondOperand">Operand 2</label>
-      <input type="text"
-             class="form-control"
-             id="secondOperand"
-             [formControl]="secondOperand"
-             placeholder="Any number">
-    </div>
-    <div class="form-group">
-      <label for="operatorSelect">Operator</label>
-      <select class="form-control"
-              id="operatorSelect"
-              [formControl]="operator">
-        <option value="ADD">Add</option>
-        <option value="SUBTRACT">Subtract</option>
-        <option value="MULTIPLY">Multiply</option>
-        <option value="DIVIDE">Divide</option>
-      </select>
-    </div>
-    <button type="button"
-            class="btn btn-primary"
-            [disabled]="isButtonDisabled()"
-            (click)="performCalculation()"
-    >Calculate</button>
   </form>
 
-  <blockquote
-    *ngIf="isCalulationResultVisible()"
-    class="blockquote">
-    <p class="mb-0">The result of your calculation request is {{ calculationResult }}.
-    </p>
-  </blockquote>
   <blockquote
     *ngIf="isCalulationErrorVisible()"
     class="blockquote">
