@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>war</artifactId>
+    <artifactId>docker-calculator-war</artifactId>
     <name>Docker Calculator - WAR Packaging</name>
 
     <dependencies>
@@ -21,6 +21,10 @@
             <groupId>de.akquinet.ats.ccsp</groupId>
             <artifactId>docker-calculator-frontend</artifactId>
             <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>de.akquinet.ats.ccsp</groupId>
+            <artifactId>docker-calculator-war</artifactId>
         </dependency>
     </dependencies>
 

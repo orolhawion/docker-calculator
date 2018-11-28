@@ -23,6 +23,7 @@
         <module>backend</module>
         <module>docker</module>
         <module>war</module>
+        <module>integrationtests</module>
     </modules>
 
 </project>

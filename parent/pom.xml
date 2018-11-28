@@ -28,7 +28,7 @@
         <jackson.version>2.9.7</jackson.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <log4j.version>2.11.1</log4j.version>
-
+        <mysql.driver.version>5.1.46</mysql.driver.version>
     </properties>
 
     <repositories>
@@ -81,6 +81,19 @@
 
             <!-- For testing -->
             <dependency>
+                <groupId>com.jboss.eap</groupId>
+                <artifactId>jboss-eap</artifactId>
+                <version>7.1.1.GA</version>
+                <type>zip</type>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.driver.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -121,6 +134,12 @@
                 <type>pom</type>
             </dependency>
 
+            <dependency>
+                <groupId>de.akquinet.ats.ccsp</groupId>
+                <artifactId>docker-calculator-war</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -159,6 +178,30 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.27.2</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.wildfly.plugins</groupId>
+                    <artifactId>wildfly-maven-plugin</artifactId>
+                    <version>1.2.2.Final</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
 
             </plugins>
