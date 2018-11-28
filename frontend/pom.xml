@@ -13,13 +13,10 @@
     <name>Docker Calculator - Frontend</name>
     <packaging>war</packaging>
 
-    <dependencies>
-
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
                     <filesets>
@@ -75,7 +72,7 @@
                             <goal>yarn</goal>
                         </goals>
                         <configuration>
-                            <arguments>build --deploy-url=/calculator/</arguments>
+                            <arguments>build --deploy-url=/calculator/ --prod</arguments>
                         </configuration>
                     </execution>
                 </executions>

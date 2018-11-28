@@ -175,7 +175,7 @@
                         <artifactId>wildfly-maven-plugin</artifactId>
                         <configuration>
                             <jboss-home>${eap.home}</jboss-home>
-                            <serverConfig>standalone.xml</serverConfig>
+                            <serverConfig>standalone-full.xml</serverConfig>
 
                             <server-args>
                                 <server-arg>-Dmysql.jdbc.url=${mysql.jdbc.url}</server-arg>
@@ -237,4 +237,29 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                    <filesets>
+                        <fileset>
+                            <directory>target</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                            <excludes>
+                                <!-- Preserve JBoss on normal builds,
+                                does not require you to build wildfly with profile it again -->
+                                <exclude>jboss*/**</exclude>
+                            </excludes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,0 +1,73 @@
+GET http://localhost:8080/calculator/rest/health
+
+### Healthcheck
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 3 ],
+  "operator": "ADD"
+}
+
+### ADD 5 expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 3 ],
+  "operator": "SUBTRACT"
+}
+
+### SUBTRACT -1 expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 3 ],
+  "operator": "MULTIPLY"
+}
+
+### MULTIPLY 6 expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 3 ],
+  "operator": "DIVIDE"
+}
+
+### DIVIDE 2/3 expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 0 ],
+  "operator": "DIVIDE"
+}
+
+### DIVIDE by zero, 400 (Bad request) expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, "a" ],
+  "operator": "ADD"
+}
+
+### ADD Invalid operand 'a', 400 (Bad request) expected
+
+POST http://localhost:8080/calculator/rest/calculate
+Content-Type: application/json
+
+{
+  "operands": [ 2, 3 ],
+  "operator": "FOOBAR"
+}
+
+### ADD Invalid operator 'FOOBAR', 400 (Bad request) expected
