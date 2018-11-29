@@ -7,11 +7,10 @@ Eine kleine Webanwendung, die die Basisfunktionalitäten eines Taschenrechners z
 ## Ist-Zustand
 Die Anwendung ist lauffähig, beinhaltet bereits Unit- und Integrationstests und ist bei GitHub verfügbar. 
 Es gibt drei Branches:
-master - Ausgangspunkt für Aufgabe 1. Alle Codeänderungen sollten hier gemacht werden
 
-appDockerized - Ein Lösungsvorschlag für Aufgabe 2, an dem man sich orientieren kann
-
-ideFriendlyIntegrationTests - Ein Lösungsvorschlag für Aufgabe 3 und die Zusatzaufgabe, an dem man sich orientieren kann
+- master: Ausgangspunkt für Aufgabe 1. Alle Codeänderungen sollten hier gemacht werden
+- appDockerized: Ein Lösungsvorschlag für Aufgabe 2, an dem man sich orientieren kann
+- ideFriendlyIntegrationTests: Ein Lösungsvorschlag für Aufgabe 3 und die Zusatzaufgabe, an dem man sich orientieren kann
 
 Bitte checkt Eure Änderungen nicht bei Github ein.
 
