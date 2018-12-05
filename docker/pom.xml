@@ -11,21 +11,13 @@
 
     <artifactId>docker-calculator-docker</artifactId>
     <name>Docker Calculator - Docker</name>
-    <packaging>pom</packaging>
 
     <properties>
         <docker.prefix>akquinet-ats-ccsp</docker.prefix>
         <docker.image>docker-calculator-wildfly</docker.image>
-        <docker.port.http>8080</docker.port.http>
-        <docker.port.manage>9990</docker.port.manage>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>de.akquinet.ats.ccsp</groupId>
@@ -36,24 +28,18 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-app-and-jdbc-driver</id>
+                        <id>copy-app</id>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
-                            <includeArtifactIds>docker-calculator-war,mysql-connector-java</includeArtifactIds>
+                            <includeArtifactIds>docker-calculator-war</includeArtifactIds>
                             <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
                             <stripVersion>true</stripVersion>
                             <overWriteReleases>true</overWriteReleases>

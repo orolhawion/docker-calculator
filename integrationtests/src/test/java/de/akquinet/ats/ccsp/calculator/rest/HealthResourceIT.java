@@ -8,7 +8,7 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HealthResourceIT {
+public class HealthResourceIT extends AbstractCalculatorIT {
 
     @Before
     public void setup() {

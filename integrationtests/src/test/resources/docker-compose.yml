@@ -1,11 +1,11 @@
 version: '3.4'
 
 services:
-  docker-calculator-wildfly:
-    container_name: "docker-calculator-wildfly"
+  docker-calculator:
+    container_name: "docker-calculator"
     image: "akquinet-ats-ccsp/docker-calculator-wildfly:1.0.1-SNAPSHOT"
     networks:
-      - internal-network
+      - calculator-network
     ports:
       - 8080:8080
       - 9990:9990
@@ -13,5 +13,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
-  internal-network:
+  calculator-network:
     driver: bridge

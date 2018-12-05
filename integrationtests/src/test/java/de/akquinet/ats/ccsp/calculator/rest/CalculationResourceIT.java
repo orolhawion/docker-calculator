@@ -12,7 +12,7 @@ import java.util.Arrays;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CalculationResourceIT {
+public class CalculationResourceIT extends AbstractCalculatorIT {
 
     @Before
     public void setup() {
