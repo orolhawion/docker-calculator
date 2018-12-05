@@ -12,24 +12,11 @@
     <artifactId>integrationtests</artifactId>
     <name>Docker Calculator - Integrationtests</name>
 
-    <properties>
-        <mysql.db>calculator_it</mysql.db>
-        <mysql.user>calculator</mysql.user>
-        <mysql.password>calculator,02</mysql.password>
-        <mysql.port.public>3306</mysql.port.public>
-        <mysql.port.exposed>3306</mysql.port.exposed>
-        <mysql.jdbc.url>jdbc:mysql://localhost:${mysql.port.public}/${mysql.db}?useSSL=false</mysql.jdbc.url>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.jboss.eap</groupId>
             <artifactId>jboss-eap</artifactId>
             <type>zip</type>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
         <dependency>
@@ -109,97 +96,6 @@
                     </plugin>
 
                     <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>mysql:5.7</name>
-                                    <alias>calculator_it_mysql</alias>
-
-                                    <run>
-                                        <namingStrategy>alias</namingStrategy>
-
-                                        <ports>
-                                            <port>${mysql.port.public}:${mysql.port.exposed}</port>
-                                        </ports>
-
-                                        <wait>
-                                            <tcp>
-                                                <host>localhost</host>
-                                                <mode>mapped</mode>
-                                                <ports>
-                                                    <port>${mysql.port.exposed}</port>
-                                                </ports>
-                                            </tcp>
-                                            <time>10000</time>
-                                        </wait>
-
-                                        <env>
-                                            <MYSQL_RANDOM_ROOT_PASSWORD>yes</MYSQL_RANDOM_ROOT_PASSWORD>
-                                            <MYSQL_DATABASE>${mysql.db}</MYSQL_DATABASE>
-                                            <MYSQL_USER>${mysql.user}</MYSQL_USER>
-                                            <MYSQL_PASSWORD>${mysql.password}</MYSQL_PASSWORD>
-                                        </env>
-                                    </run>
-                                </image>
-                            </images>
-
-                            <verbose>true</verbose>
-                        </configuration>
-
-                        <executions>
-                            <execution>
-                                <id>start</id>
-                                <phase>pre-integration-test</phase>
-
-                                <goals>
-                                    <goal>build</goal>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-
-                            <execution>
-                                <id>stop</id>
-                                <phase>post-integration-test</phase>
-
-                                <goals>
-                                    <goal>stop</goal>
-                                    <goal>remove</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-config</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${eap.home}</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>${project.build.directory}/../jboss-config/</directory>
-                                            <filtering>true</filtering>
-                                            <includes>
-                                                <include>**/*.cli</include> <!-- Config scripts -->
-                                                <include>**/*.xml</include> <!-- Module configuration -->
-                                            </includes>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
@@ -217,17 +113,6 @@
                                     <overWriteSnapshots>true</overWriteSnapshots>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>copy-jdbc-driver</id>
-                                <goals>
-                                    <goal>copy-dependencies</goal>
-                                </goals>
-                                <phase>generate-resources</phase>
-                                <configuration>
-                                    <includeArtifactIds>mysql-connector-java</includeArtifactIds>
-                                    <outputDirectory>${eap.home}/modules/com/mysql/main</outputDirectory>
-                                </configuration>
-                            </execution>
                         </executions>
                     </plugin>
 
@@ -239,9 +124,6 @@
                             <serverConfig>standalone.xml</serverConfig>
 
                             <server-args>
-                                <server-arg>-Dmysql.jdbc.url=${mysql.jdbc.url}</server-arg>
-                                <server-arg>-Dmysql.user=${mysql.user}</server-arg>
-                                <server-arg>-Dmysql.passwd=${mysql.password}</server-arg>
                                 <server-arg>-Duser.country=DE -Duser.language=de</server-arg>
                             </server-args>
 
@@ -250,27 +132,6 @@
                         </configuration>
 
                         <executions>
-                            <execution>
-                                <id>start-server-config</id>
-                                <phase>pre-integration-test</phase>
-
-                                <goals>
-                                    <goal>start</goal>
-                                    <goal>execute-commands</goal>
-                                    <goal>shutdown</goal>
-                                </goals>
-
-                                <configuration>
-                                    <batch>true</batch>
-                                    <execute-commands>
-                                        <scripts>
-                                            <script>${eap.home}/standalone/configuration/configure-datasource.cli</script>
-                                            <script>${eap.home}/standalone/configuration/deployment-scanner.cli</script>
-                                        </scripts>
-                                    </execute-commands>
-                                </configuration>
-                            </execution>
-
                             <!-- EAP startup and webapp deployment for IT -->
                             <execution>
                                 <id>deploy-app-on-wildfly</id>
