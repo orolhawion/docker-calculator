@@ -23,11 +23,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>de.akquinet.ats.ccsp</groupId>
             <artifactId>docker-calculator-war</artifactId>
             <type>war</type>
@@ -47,13 +42,13 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy-app-and-jdbc-driver</id>
+                        <id>copy-app</id>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
-                            <includeArtifactIds>docker-calculator-war,mysql-connector-java</includeArtifactIds>
+                            <includeArtifactIds>docker-calculator-war</includeArtifactIds>
                             <outputDirectory>${project.build.directory}/dependency/</outputDirectory>
                             <stripVersion>true</stripVersion>
                             <overWriteReleases>true</overWriteReleases>

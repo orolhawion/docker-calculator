@@ -4,14 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <artifactId>distribution-management-definition</artifactId>
-        <groupId>de.akquinet.infrastructure</groupId>
-        <version>1.2</version>
-        <!-- leere Angabe wichtig für mvn -->
-        <relativePath />
-    </parent>
-
     <groupId>de.akquinet.ats.ccsp</groupId>
     <artifactId>docker-calculator-parent</artifactId>
     <version>1.0.1-SNAPSHOT</version>
@@ -28,15 +20,7 @@
         <jackson.version>2.9.7</jackson.version>
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <log4j.version>2.11.1</log4j.version>
-        <mysql.driver.version>5.1.46</mysql.driver.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>palantir-docker-compose</id>
-            <url>https://dl.bintray.com/palantir/releases/</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -110,12 +94,6 @@
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.driver.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -140,13 +118,6 @@
                 <groupId>de.akquinet.ats.ccsp</groupId>
                 <artifactId>docker-calculator-backend</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>de.akquinet.ats.ccsp</groupId>
-                <artifactId>docker-calculator-frontend</artifactId>
-                <version>${project.version}</version>
-                <type>war</type>
             </dependency>
 
             <dependency>
@@ -242,12 +213,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.1.0</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>com.github.eirslett</groupId>
-                    <artifactId>frontend-maven-plugin</artifactId>
-                    <version>1.6</version>
                 </plugin>
 
                 <plugin>

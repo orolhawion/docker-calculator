@@ -19,11 +19,6 @@
             <groupId>de.akquinet.ats.ccsp</groupId>
             <artifactId>docker-calculator-backend</artifactId>
         </dependency>
-        <dependency>
-            <groupId>de.akquinet.ats.ccsp</groupId>
-            <artifactId>docker-calculator-frontend</artifactId>
-            <type>war</type>
-        </dependency>
     </dependencies>
 
     <build>
