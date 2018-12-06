@@ -9,7 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.OptionalDouble;
-import java.util.stream.Collectors;
 
 import static de.akquinet.ats.ccsp.calculator.rest.JaxRSActivator.CALCULATE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;

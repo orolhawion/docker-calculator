@@ -1,9 +1,9 @@
 version: '3.4'
 
 services:
-  docker-calculator:
-    container_name: "docker-calculator"
-    image: "akquinet-ats-ccsp/docker-calculator-wildfly:1.0.1-SNAPSHOT"
+  calculator_it:
+    container_name: "calculator_it"
+    image: "ats-ccsp/docker-calculator:1.0.1-SNAPSHOT"
     networks:
       - calculator-network
     ports:

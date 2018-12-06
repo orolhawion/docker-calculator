@@ -13,8 +13,8 @@
     <name>Docker Calculator - Docker</name>
 
     <properties>
-        <docker.prefix>akquinet-ats-ccsp</docker.prefix>
-        <docker.image>docker-calculator-wildfly</docker.image>
+        <docker.prefix>ats-ccsp</docker.prefix>
+        <docker.image>docker-calculator</docker.image>
     </properties>
 
     <dependencies>

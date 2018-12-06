@@ -12,6 +12,12 @@
     <artifactId>integrationtests</artifactId>
     <name>Docker Calculator - Integrationtests</name>
 
+    <properties>
+        <docker.prefix>ats-ccsp</docker.prefix>
+        <docker.image>docker-calculator</docker.image>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -60,6 +66,12 @@
             <artifactId>docker-compose-rule-junit4</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.junit-toolbox</groupId>
+            <artifactId>junit-toolbox</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -67,6 +79,15 @@
             <id>it</id>
 
             <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/docker-mgmt</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>**/*.yml</include>
+                        </includes>
+                    </testResource>
+                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -76,8 +97,12 @@
                                 <id>run-integration-tests</id>
                                 <goals>
                                     <goal>integration-test</goal>
-                                    <goal>verify</goal>
                                 </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/*ITSuite.class</include>
+                                    </includes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

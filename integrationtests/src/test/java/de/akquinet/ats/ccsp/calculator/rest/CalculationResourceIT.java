@@ -2,9 +2,7 @@ package de.akquinet.ats.ccsp.calculator.rest;
 
 import de.akquinet.ats.ccsp.calculator.model.Operator;
 import de.akquinet.ats.ccsp.calculator.rest.json.CalculationRequest;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,11 +12,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CalculationResourceIT extends AbstractCalculatorIT {
 
-    @Before
-    public void setup() {
-        RestAssured.baseURI = "http://localhost:8080/calculator/rest";
-        RestAssured.basePath = "/calculate";
-        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+    public CalculationResourceIT() {
+        super("/calculate");
     }
 
     @Test
